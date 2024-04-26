@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import './Weather.css'
 import { FaSearch } from "react-icons/fa";
+import {API_key} from '../config'
 
 const Weather = () => {
 
@@ -8,7 +9,7 @@ const Weather = () => {
     const [weather, setWeather] = useState();
     const[error ,setError]=useState('');
 
-    const API_key = "4d18c9398c8b157bac9b4ea7c1b20e9e";
+    // const API_key = "4d18c9398c8b157bac9b4ea7c1b20e9e";
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_key}`;
 
     const handleChange = (e) => {
@@ -40,7 +41,9 @@ const Weather = () => {
                 <input type='text' value={city} onChange={handleChange} placeholder='Enter the City Name' />
                 <button onClick={()=>fetchData()}><FaSearch /></button>
             </div>
-
+        {
+            error && <p className='error-message'>{error}</p>
+        }
         </div>
     )
 }
