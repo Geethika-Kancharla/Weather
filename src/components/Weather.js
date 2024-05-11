@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import './Weather.css'
 import { FaSearch, FaWind } from "react-icons/fa";
 import { MdLocationOn } from 'react-icons/md'
-import { API_key } from '../config'
 import { WiHumidity } from 'react-icons/wi'
 
 const Weather = () => {
@@ -11,7 +10,15 @@ const Weather = () => {
     const [weather, setWeather] = useState();
     const [error, setError] = useState('');
 
+    // const API_key = process.env.REACT_APP_API_key.replace(/['"]+/g, '');
+
+    const API_key = process.env.REACT_APP_API_key;
+
+    console.log(API_key);
+
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${API_key}`;
+
+    // console.log(url);
 
     const handleChange = (e) => {
         setCity(e.target.value);
@@ -36,6 +43,21 @@ const Weather = () => {
         }
     }
 
+
+    // async function fetchData() {
+    //     try {
+    //         const response = await fetch(url);
+    //         if (!response.ok) {
+    //             throw new Error(`HTTP error! Status: ${response.status}`);
+    //         }
+    //         const data = await response.json();
+    //         setWeather(data);
+    //         setError('');
+    //     } catch (error) {
+    //         setError(error.message);
+    //     }
+    // }
+
     return (
         <div className="container">
             <div className='city'>
@@ -49,7 +71,7 @@ const Weather = () => {
                 weather && weather.weather &&
                 <div className='content'>
                     <div className='weather-image'>
-                        <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} />
+                        <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="weather" />
                         <div className='desc'>{weather.weather[0].description}</div>
                     </div>
                     <div className='weather-temp'>
